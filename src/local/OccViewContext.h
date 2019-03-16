@@ -72,9 +72,9 @@ class OccViewerContext;
 struct OccViewWindow
 {
 	Handle(V3d_View) m_view;
-	Handle(Xw_Window) m_window;
+	Handle(Cocoa_Window) m_window;
 	OccViewerContext* parent;
-	int winddesc;
+	long long winddesc;
 
 public:
 	OccViewWindow(Handle(V3d_View) view, OccViewerContext* parent) 
@@ -83,16 +83,16 @@ public:
 	void set_virtual_window(int w, int h)
 	{
 		static int i = 0;
-		m_window = new Xw_Window (GetDisplayConnection(), (std::string("virtual") + std::to_string(i++)).c_str(), 0, 0, w, h);
+		m_window = new Cocoa_Window ((std::string("virtual") + std::to_string(i++)).c_str(), 0, 0, w, h);
 		m_window->SetVirtual  (Standard_True);
-		winddesc = m_window->NativeHandle();
+		winddesc = (long long) m_window->NativeHandle();
 		m_view->SetWindow  (m_window);
 	}
 
-	void set_window(int wind)
+	void set_window(long long wind)
 	{
 		winddesc = wind;
-		m_window = new Xw_Window(GetDisplayConnection(), wind);
+		m_window = new Cocoa_Window(reinterpret_cast<NSView*>(wind));
 		m_view->SetWindow(m_window);
 		//if (!m_window->IsMapped()) m_window->Map();
 		//m_window->DoResize();

@@ -20,7 +20,7 @@ namespace servoce
 		int h;
 
 		void set_virtual_window(int w, int h);
-		void set_window(int wind);
+		void set_window(long long wind);
 
 		void fit_all(double margin);
 		void set_direction(float a, float b, float c);

@@ -31,7 +31,7 @@ class bdist_wheel(bdist_wheel_):
 		self.plat_name_supplied = True
 		self.plat_name = platform_name
 
-liboce_include_path = "/usr/local/include/opencascade"
+liboce_include_path = "/opt/local/include/opencascade/"
 pyservoce_lib = Extension("pyservoce.libservoce",
 	sources = [
 		"src/pywrap.cpp",
@@ -53,8 +53,9 @@ pyservoce_lib = Extension("pyservoce.libservoce",
 		"src/camera.cpp",
 	], #+ nosopts["sources"],
 	extra_compile_args=['-fPIC', '-std=c++14', '-DNOTRACE=1'],
+	#extra_compile_args=['-fPIC', '-std=c++14', '-DNOTRACE=1', '-DMACOSX_USE_GLX'],
 	extra_link_args=['-Wl,-rpath,$ORIGIN/libs'],
-	include_dirs = [liboce_include_path, "src", "include"], #+ nosopts["include_paths"],
+	include_dirs = ['/opt/local/include', liboce_include_path, "src", "include"], #+ nosopts["include_paths"],
 	libraries = [
 		'TKernel',
 		'TKMath',
@@ -77,6 +78,8 @@ pyservoce_lib = Extension("pyservoce.libservoce",
 		'TKShHealing',
 		'TKMesh',
 		'TKHLR',
+                'TKV3d',
+                'X11'
 	],
 )
 

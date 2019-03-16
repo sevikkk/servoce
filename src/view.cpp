@@ -110,7 +110,7 @@ void servoce::view::set_virtual_window(int w, int h)
 	this->h = h;
 	occ->set_virtual_window(w, h);
 }
-void servoce::view::set_window(int n) { occ->set_window(n); }
+void servoce::view::set_window(long long n) { occ->set_window(n); }
 
 void servoce::view::set_direction(float a, float b, float c)
 {
